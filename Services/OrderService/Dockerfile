@@ -1,5 +1,5 @@
 # Use ASP.NET Core SDK image
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS base
 
 WORKDIR /app
 EXPOSE 5003
