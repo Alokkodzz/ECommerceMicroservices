@@ -4,7 +4,7 @@ function OrderHistory() {
   const [orders, setOrders] = useState([])
 
   useEffect(() => {
-    fetch('http://13.219.100.239:5002/api/Orders')
+    fetch('http://localhost:5002/api/Orders')
       .then(res => res.json())
       .then(data => setOrders(data))
   }, [])

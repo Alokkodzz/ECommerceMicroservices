@@ -8,7 +8,7 @@ function CreateOrder() {
     e.preventDefault()
     const order = { productName, quantity }
 
-    fetch('http://13.219.100.239:5002/api/Orders', {
+    fetch('http://localhost:5002/api/Orders', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(order)
