@@ -14,7 +14,7 @@ function OrderHistory() {
       <h2>Your Orders</h2>
       {orders.map((order, index) => (
         <div key={index} className="product-card">
-          <h4>{order.productName}</h4>
+          <p>ProductName: {order.productName}</p>
           <p>Quantity: {order.quantity}</p>
         </div>
       ))}
