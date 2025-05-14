@@ -19,3 +19,12 @@ services:
       context: ./Services/GatewayService
     ports:
       - "5000:80"
+
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    networks:
+      - microservices-network
