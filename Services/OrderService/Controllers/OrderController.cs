@@ -1,27 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
+using OrderService.Models;
 
 namespace OrderService.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class OrderController : ControllerBase
+    public class OrdersController : ControllerBase
     {
-        private static readonly List<Order> Orders = new();
+        private static List<Order> orders = new List<Order>();
 
-        [HttpPost]
-        public IActionResult Create(Order order)
+        [HttpGet]
+        public IActionResult Get()
         {
-            order.Id = Orders.Count + 1;
-            Orders.Add(order);
-            return CreatedAtAction(nameof(GetById), new { id = order.Id }, order);
+            return Ok(orders);
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<Order> GetById(int id)
+        [HttpPost]
+        public IActionResult Create([FromBody] Order order)
         {
-            var order = Orders.FirstOrDefault(o => o.Id == id);
-            if (order is null) return NotFound();
-            return order;
+            orders.Add(order);
+            return Ok(order);
         }
     }
 }

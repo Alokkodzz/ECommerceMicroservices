@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const ProductList = () => {
+function ProductList() {
   const [products, setProducts] = useState([]);
+  const [newProduct, setNewProduct] = useState({ name: "", description: "", price: "" });
 
   const fetchProducts = async () => {
-    try {
-      const response = await axios.get("http://localhost:5000/api/products");
-      setProducts(response.data);
-    } catch (error) {
-      console.error("Failed to fetch products", error);
-    }
+    const response = await axios.get("http://localhost:5000/api/product");
+    setProducts(response.data);
+  };
+
+  const createProduct = async () => {
+    await axios.post("http://localhost:5000/api/product", newProduct);
+    fetchProducts();
   };
 
   useEffect(() => {
@@ -18,21 +20,19 @@ const ProductList = () => {
   }, []);
 
   return (
-    <div className="product-list">
-      <h3>Product List</h3>
-      {products.length === 0 ? (
-        <p>No products available</p>
-      ) : (
-        <ul>
-          {products.map((product) => (
-            <li key={product.id}>
-              <strong>{product.name}</strong> - {product.description} - ${product.price}
-            </li>
-          ))}
-        </ul>
-      )}
+    <div>
+      <h2>Product Service</h2>
+      <input placeholder="Name" onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} />
+      <input placeholder="Description" onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })} />
+      <input placeholder="Price" onChange={(e) => setNewProduct({ ...newProduct, price: parseFloat(e.target.value) })} />
+      <button onClick={createProduct}>Create Product</button>
+      <ul>
+        {products.map((p, idx) => (
+          <li key={idx}>{p.name} - {p.price}</li>
+        ))}
+      </ul>
     </div>
   );
-};
+}
 
 export default ProductList;

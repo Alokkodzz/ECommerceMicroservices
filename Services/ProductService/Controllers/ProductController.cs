@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using ProductService.Models;
 
 namespace ProductService.Controllers
 {
@@ -6,13 +7,19 @@ namespace ProductService.Controllers
     [Route("api/[controller]")]
     public class ProductController : ControllerBase
     {
-        private static readonly List<Product> Products = new()
-        {
-            new Product { Id = 1, Name = "Laptop", Price = 999 },
-            new Product { Id = 2, Name = "Smartphone", Price = 499 }
-        };
+        private static List<Product> products = new List<Product>();
 
         [HttpGet]
-        public IEnumerable<Product> Get() => Products;
+        public IActionResult Get()
+        {
+            return Ok(products);
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] Product product)
+        {
+            products.Add(product);
+            return Ok(product);
+        }
     }
 }

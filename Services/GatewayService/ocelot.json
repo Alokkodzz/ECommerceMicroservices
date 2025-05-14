@@ -1,31 +1,21 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/product",
+      "DownstreamPathTemplate": "/api/Product",
+      "UpstreamPathTemplate": "/api/product",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "productservice",
-          "Port": 80
-        }
-      ],
-      "UpstreamPathTemplate": "/product",
-      "UpstreamHttpMethod": [ "GET" ]
+      "DownstreamHostAndPorts": [ { "Host": "productservice", "Port": 5001 } ]
     },
     {
-      "DownstreamPathTemplate": "/api/order",
+      "DownstreamPathTemplate": "/api/Orders",
+      "UpstreamPathTemplate": "/api/orders",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "orderservice",
-          "Port": 80
-        }
-      ],
-      "UpstreamPathTemplate": "/order",
-      "UpstreamHttpMethod": [ "POST", "GET" ]
+      "DownstreamHostAndPorts": [ { "Host": "orderservice", "Port": 5002 } ]
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5000"
+    "BaseUrl": "http://gatewayservice:5000"
   }
 }
