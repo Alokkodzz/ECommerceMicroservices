@@ -1,9 +1,9 @@
-namespace ProductService
+namespace ProductService.Models
 {
-    public record Product
+    public class Product
     {
-        public int Id { get; init; }
-        public string Name { get; init; }
-        public decimal Price { get; init; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
     }
 }

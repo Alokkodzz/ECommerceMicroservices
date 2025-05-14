@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const OrderList = () => {
+function OrderList() {
   const [orders, setOrders] = useState([]);
+  const [newOrder, setNewOrder] = useState({ productId: "", quantity: "" });
 
   const fetchOrders = async () => {
-    try {
-      const response = await axios.get("http://localhost:5002/api/orders");
-      setOrders(response.data);
-    } catch (error) {
-      console.error("Failed to fetch orders", error);
-    }
+    const response = await axios.get("http://localhost:5000/api/orders");
+    setOrders(response.data);
+  };
+
+  const createOrder = async () => {
+    await axios.post("http://localhost:5000/api/orders", newOrder);
+    fetchOrders();
   };
 
   useEffect(() => {
@@ -18,21 +20,18 @@ const OrderList = () => {
   }, []);
 
   return (
-    <div className="order-list">
-      <h3>Order List</h3>
-      {orders.length === 0 ? (
-        <p>No orders available</p>
-      ) : (
-        <ul>
-          {orders.map((order) => (
-            <li key={order.id}>
-              Order ID: {order.id} | Product ID: {order.productId} | Quantity: {order.quantity}
-            </li>
-          ))}
-        </ul>
-      )}
+    <div>
+      <h2>Order Service</h2>
+      <input placeholder="ProductId" onChange={(e) => setNewOrder({ ...newOrder, productId: parseInt(e.target.value) })} />
+      <input placeholder="Quantity" onChange={(e) => setNewOrder({ ...newOrder, quantity: parseInt(e.target.value) })} />
+      <button onClick={createOrder}>Create Order</button>
+      <ul>
+        {orders.map((o, idx) => (
+          <li key={idx}>Product: {o.productId}, Quantity: {o.quantity}</li>
+        ))}
+      </ul>
     </div>
   );
-};
+}
 
 export default OrderList;

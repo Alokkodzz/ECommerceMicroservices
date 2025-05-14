@@ -1,10 +1,8 @@
-namespace OrderService
+namespace OrderService.Models
 {
-    public record Order
+    public class Order
     {
-        public int Id { get; set; }
-        public string Customer { get; init; }
-        public string Product { get; init; }
-        public int Quantity { get; init; }
+        public int ProductId { get; set; }
+        public int Quantity { get; set; }
     }
 }

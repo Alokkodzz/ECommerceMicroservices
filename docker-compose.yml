@@ -26,5 +26,3 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:80"
-    networks:
-      - microservices-network
