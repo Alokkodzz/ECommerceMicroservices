@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Ocelot" Version="17.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DiagnosticAdapter" Version="7.0.0" />
   </ItemGroup>
 
 </Project>
