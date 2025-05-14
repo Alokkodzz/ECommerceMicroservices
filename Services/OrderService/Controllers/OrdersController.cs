@@ -20,7 +20,7 @@ namespace OrderService.Controllers
         public async Task<IActionResult> Get()
         {
             using var connection = new NpgsqlConnection(_config.GetConnectionString("Postgres"));
-            var orders = await connection.QueryAsync<Order>("SELECT * FROM Orders");
+            var orders = await connection.QueryAsync<Order>("SELECT * alok.FROM Orders");
             return Ok(orders);
         }
 
