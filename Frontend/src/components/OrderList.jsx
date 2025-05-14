@@ -1,26 +1,38 @@
-import React, { useEffect, useState } from 'react'
-import { orderApi } from '../api/api'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-function OrderList() {
-  const [orders, setOrders] = useState([])
+const OrderList = () => {
+  const [orders, setOrders] = useState([]);
+
+  const fetchOrders = async () => {
+    try {
+      const response = await axios.get("http://localhost:5002/api/orders");
+      setOrders(response.data);
+    } catch (error) {
+      console.error("Failed to fetch orders", error);
+    }
+  };
 
   useEffect(() => {
-    orderApi.get('/orders')
-      .then(res => setOrders(res.data))
-      .catch(err => console.error(err))
-  }, [])
+    fetchOrders();
+  }, []);
 
   return (
-    <div className="space-y-4">
-      {orders.map(order => (
-        <div key={order.id} className="p-4 border rounded bg-white">
-          <h2 className="text-lg font-bold">Order #{order.id}</h2>
-          <p>ProductId: {order.productId}</p>
-          <p>Quantity: {order.quantity}</p>
-        </div>
-      ))}
+    <div className="order-list">
+      <h3>Order List</h3>
+      {orders.length === 0 ? (
+        <p>No orders available</p>
+      ) : (
+        <ul>
+          {orders.map((order) => (
+            <li key={order.id}>
+              Order ID: {order.id} | Product ID: {order.productId} | Quantity: {order.quantity}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default OrderList
+export default OrderList;
