@@ -9,7 +9,7 @@ function AddProduct() {
     e.preventDefault()
     const product = { name, price, imageUrl: image }
 
-    fetch('http://3.89.228.34:5001/api/Product', {
+    fetch('http://localhost:5001/api/Product', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(product)
